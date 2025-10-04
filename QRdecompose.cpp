@@ -43,7 +43,6 @@ QRresult QRdecompose(const std::vector<std::vector<double>>& matrixA) {
         s = -b/denominator;
     }
 
-
     for (int i = 0; i < rows-1; i++) {
         firstRotation[i][i] = c;
     }
@@ -52,6 +51,61 @@ QRresult QRdecompose(const std::vector<std::vector<double>>& matrixA) {
     firstRotation[2][2] = 1;
 
     result.R = multiply(firstRotation,result.R);
+
+    k = 0;
+    p = 0;
+    q = 2;
+    a = result.R[p][k];
+    b = result.R[q][k];
+
+    c = 0;
+    s = 0;
+    denominator = std::hypot(a,b);
+
+    if (b == 0) {
+        c = 1;
+        s = 0;
+    } else {
+        c = a/denominator;
+        s = -b/denominator;
+    }
+
+    secondRotation[1][1] = 1;
+
+    secondRotation[0][0] = c;
+    secondRotation[2][2] = c;
+    secondRotation[0][2] = -s;
+    secondRotation[2][0] = s;
+
+    result.R = multiply(secondRotation,result.R);
+    result.Qacc = multiply(firstRotation,secondRotation);
+
+    k = 1;
+    p = 1;
+    q = 2;
+    a = result.R[p][k];
+    b = result.R[q][k];
+
+    c = 0;
+    s = 0;
+    denominator = std::hypot(a,b);
+
+    if (b == 0) {
+        c = 1;
+        s = 0;
+    } else {
+        c = a/denominator;
+        s = -b/denominator;
+    }
+
+    thirdRotation[0][0] = 1;
+    thirdRotation[1][1] = c;
+    thirdRotation[2][2] = c;
+    thirdRotation[1][2] = -s;
+    thirdRotation[2][1] = s;
+
+    result.R = multiply(thirdRotation,result.R);
+    result.Qacc = multiply(thirdRotation,result.Qacc);
 
     return result;
 
