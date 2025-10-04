@@ -9,4 +9,6 @@ add_executable(Gaussian LUdecompose.cpp LUdecompose.h  main.cpp
         backWardSubstitution.cpp
         backWardSubstitution.h
         QRdecompose.cpp
-        QRdecompose.h)
+        QRdecompose.h
+        multiplyMatrices.cpp
+        multiplyMatrices.h)

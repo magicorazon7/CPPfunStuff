@@ -5,9 +5,13 @@
 #ifndef GAUSSIAN_ROTATIONMATRICES_H
 #define GAUSSIAN_ROTATIONMATRICES_H
 
+#include <vector>
 
-class QRdecompose {
+struct QRresult {
+    std::vector<std::vector<double>> Qacc;
+    std::vector<std::vector<double>> R;
 };
 
+QRresult QRdecompose(const std::vector<std::vector<double>>&);
 
 #endif //GAUSSIAN_ROTATIONMATRICES_H
